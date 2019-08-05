@@ -150,6 +150,7 @@ CREATE TABLE `rounds` (
 
 LOCK TABLES `rounds` WRITE;
 /*!40000 ALTER TABLE `rounds` DISABLE KEYS */;
+INSERT INTO `rounds` VALUES ('facebook','abc','easy','coding','5'),('google','abc','easy','coding','5');
 /*!40000 ALTER TABLE `rounds` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +166,7 @@ CREATE TABLE `submissions` (
   `question_id` int(11) NOT NULL,
   `submission_id` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(45) DEFAULT NULL,
-  `Code` varchar(45) NOT NULL,
+  `code` varchar(45) NOT NULL,
   `score` int(11) DEFAULT '0',
   `submission_time` int(11) NOT NULL,
   `language` varchar(45) NOT NULL,
@@ -219,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-05 19:34:11
+-- Dump completed on 2019-08-05 20:25:55
