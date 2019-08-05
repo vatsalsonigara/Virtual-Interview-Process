@@ -14,7 +14,7 @@ app.config['MYSQL_CURSORCLASS']='DictCursor'
 
 mysql = MySQL(app)
 
-
+#add a user to database
 @app.route('/user', methods=['POST'])
 def user():
     conn = mysql.connection
@@ -29,15 +29,16 @@ def user():
         return json.dumps({'Error' : str(e)}) 
     return json.dumps({'Message' : 'Record inserted successfully'}) 
 
+# get a user details from database
 @app.route('/user/<username>')
 def get_user_details(username):
     conn = mysql.connection
     cur =conn.cursor()
     try:
         cur.execute("Select * from users where username=%s",[username])
-        data = jsonify(cur.fetchone())
+        json_data = jsonify(cur.fetchone())
         cur.close()
-        return data
+        return json_data
     except Exception as e:
         cur.close()
         return json.dumps({'Error' : str(e)})
@@ -55,6 +56,24 @@ def delete_user(username):
         cur.close()
         return json.dumps({'Error' : str(e)})
 
+
+#add question to the database
+@app.route('/questions',methods=['POST'])
+def get_question():
+    conn = mysql.connection
+    cur =conn.cursor()
+    data = request.get_json(force=True)
+    try:
+        cur.execute("INSERT into questions(company,problem_statement,test_cases,score,type,difficulty) VALUES(%s,%s,%s,%s,%s,%s)",[data['company'],data['problem_statement'],data['test_cases'],data['score'],data['type'],data['difficulty']])
+        json_data = jsonify(cur.fetchone())
+        conn.commit()
+        cur.close()
+        return json_data 
+    except Exception as e:
+        cur.close()
+        return json.dumps({'Error' : str(e)}) 
+    
+        
 
 if __name__=='__main__':
     app.run(debug=True)
