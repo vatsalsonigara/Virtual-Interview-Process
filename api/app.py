@@ -26,7 +26,9 @@ def user():
         cur.close()
     except Exception as e:
         cur.close()
-        return json.dumps({'Error' : str(e)}) 
+        print(str(e))
+        return json.dumps({'Error' : str(e)})
+    print('Record inserted successfully') 
     return json.dumps({'Message' : 'Record inserted successfully'}) 
 
 # get a user details from database
