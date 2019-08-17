@@ -17,6 +17,7 @@ mysql = MySQL(app)
 #add a user to database
 @app.route('/user', methods=['POST'])
 def user():
+    
     conn = mysql.connection
     cur =conn.cursor()
     data = request.get_json(force=True)
